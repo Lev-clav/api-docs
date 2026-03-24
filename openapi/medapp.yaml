@@ -1,0 +1,1102 @@
+info:
+  _postman_id: efe1a826-a26f-48d8-b149-0ac2664c9810
+  name: Здоровый сон
+  schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+  _exporter_id: '40922779'
+item:
+  - name: Общие запросы
+    item:
+      - name: Профиль
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/profile/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - ''
+        response:
+          - name: Профиль
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/profile/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - ''
+            _postman_previewlanguage: null
+            header: null
+            cookie: []
+            body: null
+      - name: Запрос токена
+        event:
+          - listen: test
+            script:
+              exec:
+                - "const schema = { \"type\": \"object\",\r"
+                - "\"properties\": {\r"
+                - "\"name\": { \"type\": \"string\" },\r"
+                - "\"age\": { \"type\": \"number\" }\r"
+                - "},\r"
+                - "\"required\": [\"name\", \"age\"]\r"
+                - "}\r"
+                - "pm.test(\"Response matches schema\", () => {\r"
+                - "pm.response.to.have.jsonSchema(schema);\r"
+                - '});'
+              type: text/javascript
+              packages: {}
+              requests: {}
+        request:
+          auth:
+            type: basic
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n  \"email\": \"user@mail.com\",\r\n  \"password\": \"123456\"\r\n}"
+          url:
+            raw: '{{URL}}/auth/login/'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - login
+              - ''
+        response:
+          - name: Запрос токена
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: formdata
+                formdata:
+                  - key: email
+                    value: doctor@test.ru
+                    type: text
+                  - key: password
+                    value: 12345678aA!
+                    type: text
+              url:
+                raw: '{{URL}}/auth/login/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - login
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "accessToken": "jwt_token",
+                  "refreshToken": "refresh_token",
+                  "user": {
+                      "id": 1,
+                      "role": "PATIENT"
+                  }
+              }
+      - name: Обновление токена
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"refreshtoken\":\"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/auth/refresh'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - refresh
+        response:
+          - name: Обновление токена
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"refreshToken\": \"refresh_token\"\r\n}"
+              url:
+                raw: '{{URL}}/auth/refresh'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - refresh
+            _postman_previewlanguage: null
+            header: null
+            cookie: []
+            body: "{\r\n  \"accessToken\": \"new_jwt_token\"\r\n}"
+      - name: Восстановление пароля
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"email\": \"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/auth/reset_password/'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - reset_password
+              - ''
+        response:
+          - name: Восстановление пароля
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"email\": \"bla-bla@gmail.com\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/reset_password/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - reset_password
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"code\": 200,\r\n    \"text\": \"You're password was sucsessfully reset. Please login with your new password.\"\r\n}"
+      - name: Смена пароля
+        request:
+          method: PATCH
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"Password\": \"stirng\",\r\n    \"NewPassword\":\"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/profile/change_password/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - change_password
+              - ''
+        response:
+          - name: Смена пароля
+            originalRequest:
+              method: PATCH
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"Password\": \"123\",\r\n    \"NewPassword\":\"12321\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/profile/change_password/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - change_password
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "code": 200,
+                  "NewPassword": "12321"
+              }
+    description: >-
+      Здесь находятся общие запросы, которые может выполнять каждая роль в
+      системе
+  - name: Admin
+    item:
+      - name: Создание нового пользователя
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"RoleID\": [\"Patient\", \"Doctor\", \"Admin\"],\r\n    \"Model\": [\"ResMed\", \"ResVent\", \"WTF\"],\r\n    \"Birthdate\": 202021,\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password\": \"Password\"\r\n    \"Additional\": \"Тути фрути, бейбл джуси\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/auth/new'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - new
+        response:
+          - name: Создание нового пользователя
+            originalRequest:
+              method: POST
+              header:
+                - key: Content-Type
+                  value: application/json
+                  type: text
+              body:
+                mode: raw
+                raw: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"string\",\r\n    \"Surname\": \"string\",\r\n    \"Fathername\": \"string\",\r\n    \"Email\": \"string\",\r\n    \"Model\": \"string\",\r\n    \"Birthdate\": \"datetime\",\r\n    \"PhoneNumber\": \"string\",\r\n    \"Password\": \"string\",\r\n    \"Additional\": \"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/new'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - new
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"Model\": [\"ResMed\", \"ResVent\", \"WTF\"],\r\n    \"Birthdate\": 202021,\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password\": \"Password\",\r\n    \"Additional\": \"Бла-бла\"\r\n}"
+      - name: Удаление пользователя
+        request:
+          method: DELETE
+          header: []
+          url:
+            raw: '{{URL}}/profile/{id}/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - '{id}'
+              - ''
+        response:
+          - name: Удаление пользователя
+            originalRequest:
+              method: DELETE
+              header: []
+              body:
+                mode: formdata
+                formdata: []
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "message": "User deleted"
+              }
+      - name: Просмотр информации о пользователе
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/profile/{id}/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - '{id}'
+              - ''
+        response:
+          - name: Просмотр информации о пользователе
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"RoleID\": \"Patient\",\r\n    \"Model\": \"ResMed\",\r\n    \"Birthdate\": 202021,\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password\": \"Password\",\r\n    \"Additional\": \"Bip-bip\"\r\n}"
+      - name: Обновление информации о пользователе
+        request:
+          method: PATCH
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"Fathername\": \"Евгеньевич\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/profile/{id}/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - '{id}'
+              - ''
+        response:
+          - name: Обновление информации о пользователе
+            originalRequest:
+              method: PATCH
+              header: []
+              body:
+                mode: raw
+                raw: ''
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"code\": 200,\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"RoleID\": [\"Patient\", \"Doctor\", \"Admin\"],\r\n    \"Model\": [\"ResMed\", \"ResVent\", \"WTF\"],\r\n    \"Birthdate\": 202021,\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password\": \"Password\"\r\n    \"Additional\": \"Тути фрути, бейбл джуси\"\r\n}"
+      - name: Получение списка пользователей
+        request:
+          auth:
+            type: basic
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/admin/users?page=1&size=20'
+            host:
+              - '{{URL}}'
+            path:
+              - admin
+              - users
+            query:
+              - key: page
+                value: '1'
+                type: text
+              - key: size
+                value: '20'
+                type: text
+        response:
+          - name: Получение списка пользователей
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/admin/users?page=1&size=20'
+                host:
+                  - '{{URL}}'
+                path:
+                  - admin
+                  - users
+                query:
+                  - key: page
+                    value: '1'
+                  - key: size
+                    value: '20'
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n    \"page\": 1,\r\n  \"size\": 20,\r\n  \"totalPages\": 10,\r\n  \"items\": [\r\n    {\r\n      \"id\": 1,\r\n      \"email\": \"user@mail.com\",\r\n      \"role\": \"PATIENT\"\r\n    }\r\n  ]\r\n}"
+  - name: User
+    item:
+      - name: Запрос статистики
+        protocolProfileBehavior:
+          disableBodyPruning: true
+        request:
+          method: GET
+          header: []
+          body:
+            mode: raw
+            raw: ''
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/statistics/view/{PrivateID}/?From={}&To={}'
+            host:
+              - '{{URL}}'
+            path:
+              - statistics
+              - view
+              - '{PrivateID}'
+              - ''
+            query:
+              - key: From
+                value: '{}'
+              - key: To
+                value: '{}'
+                type: text
+        response:
+          - name: Статистика
+            originalRequest:
+              method: GET
+              header: []
+              body:
+                mode: raw
+                raw: ''
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: >-
+                  {{URL}}/statistics/cpap_stats/fk9420vqf3lpqbam/?from=2024-01-01&to=2025-01-01
+                host:
+                  - '{{URL}}'
+                path:
+                  - statistics
+                  - cpap_stats
+                  - fk9420vqf3lpqbam
+                  - ''
+                query:
+                  - key: from
+                    value: '2024-01-01'
+                  - key: to
+                    value: '2025-01-01'
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Server
+                value: nginx
+              - key: Date
+                value: Fri, 10 Jan 2025 13:03:12 GMT
+              - key: Content-Type
+                value: application/json
+              - key: Transfer-Encoding
+                value: chunked
+              - key: Connection
+                value: keep-alive
+              - key: Vary
+                value: Accept-Encoding
+              - key: Vary
+                value: Accept, Accept-Language, origin
+              - key: Allow
+                value: GET, HEAD, OPTIONS
+              - key: X-Frame-Options
+                value: DENY
+              - key: Content-Language
+                value: ru
+              - key: X-Content-Type-Options
+                value: nosniff
+              - key: Referrer-Policy
+                value: same-origin
+              - key: Cross-Origin-Opener-Policy
+                value: same-origin
+              - key: Content-Encoding
+                value: gzip
+            cookie: []
+            body: |-
+              [
+                  {
+                      "id": 1148,
+                      "date": "2024-09-26",
+                      "data": {
+                          "ai": 0,
+                          "hi": 0,
+                          "ahi": 0,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 10,
+                          "duration": 10,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 5,
+                          "min_pressure": 4,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1147,
+                      "date": "2024-10-07",
+                      "data": {
+                          "ai": 0,
+                          "hi": 6.58,
+                          "ahi": 6.58,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 5,
+                          "duration": 63,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 5,
+                          "min_pressure": 5,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1150,
+                      "date": "2024-10-08",
+                      "data": {
+                          "ai": 0,
+                          "hi": 0,
+                          "ahi": 0,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 2,
+                          "duration": 2,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 5,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1146,
+                      "date": "2024-10-10",
+                      "data": {
+                          "ai": 0,
+                          "hi": 4.83,
+                          "ahi": 4.83,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 34,
+                          "duration": 198,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1145,
+                      "date": "2024-10-11",
+                      "data": {
+                          "ai": 0,
+                          "hi": 2.11,
+                          "ahi": 2.11,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 22,
+                          "duration": 313,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1149,
+                      "date": "2024-10-12",
+                      "data": {
+                          "ai": 0.2,
+                          "hi": 2.4,
+                          "ahi": 2.6,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 19,
+                          "duration": 300,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  }
+              ]
+      - name: Загрузка статистики
+        request:
+          method: POST
+          header: []
+          body:
+            mode: formdata
+            formdata: []
+          url:
+            raw: '{{URL}}/statistics/upload/{id}'
+            host:
+              - '{{URL}}'
+            path:
+              - statistics
+              - upload
+              - '{id}'
+        response:
+          - name: Загрузка статистики
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: formdata
+                formdata: []
+              url:
+                raw: '{{URL}}/statistics/upload/{id}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - statistics
+                  - upload
+                  - '{id}'
+            _postman_previewlanguage: null
+            header: null
+            cookie: []
+            body: null
+      - name: Отвязать врача от пациента
+        request:
+          method: DELETE
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"Patient_ID\":100,\r\n    \"Doctor_ID\":100\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/patientslink'
+            host:
+              - '{{URL}}'
+            path:
+              - patientslink
+        response:
+          - name: Отвязать врача от пациента
+            originalRequest:
+              method: DELETE
+              header: []
+              body:
+                mode: raw
+                raw: ''
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}}/patientslink'
+                host:
+                  - '{{URL}}}'
+                path:
+                  - patientslink
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "message": "Patient unlinked successfully"
+              }
+      - name: Регистрация
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"string\",\r\n    \"Surname\": \"string\",\r\n    \"Fathername\": \"string\",\r\n    \"Email\": \"string\",\r\n    \"Model\": \"string\",\r\n    \"Birthdate\": \"datetime\",\r\n    \"PhoneNumber\": \"string\",\r\n    \"Password\": \"string\",\r\n    \"Additional\": \"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/patients'
+            host:
+              - '{{URL}}'
+            path:
+              - patients
+        response:
+          - name: Регистрация
+            originalRequest:
+              method: POST
+              header:
+                - key: Content-Type
+                  value: application/json
+                  type: text
+              body:
+                mode: raw
+                raw: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"Model\": [\"ResMed\", \"ResVent\", \"WTF\"],\r\n    \"Birthdate\": 202021,\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password\": \"Password\",\r\n    \"Additional\": \"Бла-бла\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                "id": 1,
+                "createdAt": "2024-03-20T10:00:00Z"
+              }
+      - name: Данные пациента
+        event:
+          - listen: test
+            script:
+              exec:
+                - "const schema = {\r"
+                - "  \"type\": \"object\",\r"
+                - "  \"properties\": {\r"
+                - "    \"patientId\": { \"type\": \"integer\" },\r"
+                - "    \"date\": { \"type\": \"string\", \"format\": \"date\" },\r"
+                - "    \"metrics\": {\r"
+                - "      \"type\": \"object\",\r"
+                - "      \"properties\": {\r"
+                - "        \"pulse\": { \"type\": \"integer\", \"minimum\": 0 },\r"
+                - "        \"pressure\": { \"type\": \"string\" }\r"
+                - "      },\r"
+                - "      \"required\": [\"pulse\"]\r"
+                - "    }\r"
+                - "  },\r"
+                - "  \"required\": [\"patientId\", \"date\", \"metrics\"]\r"
+                - "}\r"
+                - "pm.test(\"Response matches schema\", () => {\r"
+                - "pm.response.to.have.jsonSchema(schema);\r"
+                - '});'
+              type: text/javascript
+              packages: {}
+              requests: {}
+        request:
+          method: POST
+          header: []
+          body:
+            mode: formdata
+            formdata:
+              - key: Data
+                type: file
+                uuid: 2706cec4-df52-46c9-a812-1fb415e6ac4d
+                value: null
+          url:
+            raw: '{{URL}}/patients/data/upload'
+            host:
+              - '{{URL}}'
+            path:
+              - patients
+              - data
+              - upload
+        response:
+          - name: Данные пациента
+            originalRequest:
+              method: POST
+              header: []
+              url:
+                raw: '{{URL}}/patients/data/upload'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patients
+                  - data
+                  - upload
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n  \"message\": \"Data uploaded successfully\"\r\n}"
+    description: >-
+      Здесь находятся запросы, которые могут выполнять только пользователи со
+      статусом "Пациент"
+  - name: Doctor
+    item:
+      - name: Девайсы
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/data/{patientId}?from%3D2024-03-01%26to%3D2024-03-20'
+            host:
+              - '{{URL}}'
+            path:
+              - data
+              - '{patientId}'
+            query:
+              - key: from=2024-03-01&to=2024-03-20
+                value: null
+                type: text
+        response:
+          - name: Девайсы
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/data/{patientId}?from%3D2024-03-01%26to%3D2024-03-20'
+                host:
+                  - '{{URL}}'
+                path:
+                  - data
+                  - '{patientId}'
+                query:
+                  - key: from%3D2024-03-01%26to%3D2024-03-20
+                    value: null
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n  \"items\": [\r\n    {\r\n      \"date\": \"2026-03-20\",\r\n      \"metrics\": {\r\n        \"pulse\": 80,\r\n        \"pressure\": \"120/80\"\r\n      }\r\n    }\r\n  ]\r\n}"
+      - name: Пациенты
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/doctors/patients/?page=1&size=20'
+            host:
+              - '{{URL}}'
+            path:
+              - doctors
+              - patients
+              - ''
+            query:
+              - key: page
+                value: '1'
+              - key: size
+                value: '20'
+        response:
+          - name: Пациенты
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/patients/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patients
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                   "page": 1,
+                "size": 20,
+                "totalPages": 10,
+                  "items": [
+                      {
+                          "id": 1,
+                          "name": "Ivan",
+                          "lastName": "Ivanov"
+                      }
+                  ]
+              }
+      - name: Регистрация
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"string\",\r\n    \"Surname\": \"string\",\r\n    \"Fathername\": \"string\",\r\n    \"Email\": \"string\",\r\n    \"Birthdate\": \"datetime\",\r\n    \"PhoneNumber\": \"string\",\r\n    \"Password\": \"string\",\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/doctors'
+            host:
+              - '{{URL}}'
+            path:
+              - doctors
+        response:
+          - name: Регистрация
+            originalRequest:
+              method: POST
+              header:
+                - key: Content-Type
+                  value: application/json
+                  type: text
+              body:
+                mode: raw
+                raw: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"Birthdate\": 202021,\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password\": \"Password\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/doctors'
+                host:
+                  - '{{URL}}'
+                path:
+                  - doctors
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "id": 1,
+                  "createdAt": "2024-03-20T10:00:00Z"
+              }
+      - name: Привязка пациента
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"patienst_ID\": \"int\",\r\n    \"Doctor_ID\":\"int\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}}/patientslink'
+            host:
+              - '{{URL}}}'
+            path:
+              - patientslink
+        response:
+          - name: Привязка пациента
+            originalRequest:
+              method: POST
+              header:
+                - key: Content-Type
+                  value: application/json
+                  type: text
+              body:
+                mode: raw
+                raw: "{\r\n    \"patienst_ID\": 100,\r\n    \"Doctor_ID\":1\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}}/patientslink'
+                host:
+                  - '{{URL}}}'
+                path:
+                  - patientslink
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "message": "Patient linked successfully"
+              }
+    auth:
+      type: bearer
+      bearer:
+        - key: token
+          value: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2NTI3NTY4LCJpYXQiOjE3MzY1MDIzNjgsImp0aSI6IjU3OWI2MmQ1YTE5YjRhNjZhOWEzMDE4MDE2N2U1OTljIiwidXNlcl9pZCI6NTZ9.jz9PpZC930tJQ2hhb-zlTqdfM4tXPYeVyk6PiXPeyHo
+          type: string
+    event:
+      - listen: prerequest
+        script:
+          type: text/javascript
+          packages: {}
+          exec:
+            - ''
+      - listen: test
+        script:
+          type: text/javascript
+          packages: {}
+          exec:
+            - ''
+auth:
+  type: bearer
+  bearer:
+    - key: token
+      value: '12321'
+      type: string
+event:
+  - listen: prerequest
+    script:
+      type: text/javascript
+      packages: {}
+      requests: {}
+      exec:
+        - ''
+  - listen: test
+    script:
+      type: text/javascript
+      packages: {}
+      requests: {}
+      exec:
+        - ''
+variable:
+  - key: URL
+    value: https://api.healthysleep.sixhands.co

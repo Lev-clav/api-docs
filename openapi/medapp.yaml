@@ -1,911 +1,1911 @@
 openapi: 3.0.3
 
 info:
-  title: Здоровый сон
-  version: 1.0.0
-  contact: {}
-servers:
-  - url: https://api.healthysleep.sixhands.co
-  - url: https://api.healthysleep.sixhands.co}
-paths:
-  /profile/:
-    get:
-      tags:
-        - Общие запросы
-      summary: Профиль
-      description: Профиль
-      operationId: ''
-      responses:
-        '200':
-          description: ''
-  /auth/login/:
-    post:
-      tags:
-        - Общие запросы
-      summary: Запрос токена
-      description: Запрос токена
-      operationId: '1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: user@mail.com
-                password:
-                  type: string
-                  example: '123456'
-            examples:
-              Запрос токена:
-                value:
-                  email: user@mail.com
-                  password: '123456'
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: doctor@test.ru
-                password:
-                  type: string
-                  example: 12345678aA!
-      responses:
-        '200':
-          description: ''
-      security:
-        - basicAuth: []
-  /auth/refresh:
-    post:
-      tags:
-        - Общие запросы
-      summary: Обновление токена
-      description: Обновление токена
-      operationId: '2'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                refreshToken:
-                  type: string
-                  example: refresh_token
-            examples:
-              Обновление токена:
-                value:
-                  refreshToken: refresh_token
-      responses:
-        '200':
-          description: ''
-  /auth/reset_password/:
-    post:
-      tags:
-        - Общие запросы
-      summary: Восстановление пароля
-      description: Восстановление пароля
-      operationId: '3'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: bla-bla@gmail.com
-            examples:
-              Восстановление пароля:
-                value:
-                  email: bla-bla@gmail.com
-      responses:
-        '200':
-          description: ''
-  /profile/change_password/:
-    patch:
-      tags:
-        - Общие запросы
-      summary: Смена пароля
-      description: Смена пароля
-      operationId: '4'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                NewPassword:
-                  type: string
-                  example: '12321'
-                Password:
-                  type: string
-                  example: '123'
-            examples:
-              Смена пароля:
-                value:
-                  NewPassword: '12321'
-                  Password: '123'
-      responses:
-        '200':
-          description: ''
-  /auth/new:
-    post:
-      tags:
-        - Admin
-      summary: Создание нового пользователя
-      description: Создание нового пользователя
-      operationId: '5'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                Additional:
-                  type: string
-                  example: string
-                Birthdate:
-                  type: string
-                  example: datetime
-                Email:
-                  type: string
-                  example: string
-                Fathername:
-                  type: string
-                  example: string
-                ID:
-                  type: number
-                  example: 35
-                Model:
-                  type: string
-                  example: string
-                Name:
-                  type: string
-                  example: string
-                Password:
-                  type: string
-                  example: string
-                PhoneNumber:
-                  type: string
-                  example: string
-                Surname:
-                  type: string
-                  example: string
-            examples:
-              Создание нового пользователя:
-                value:
-                  Additional: string
-                  Birthdate: datetime
-                  Email: string
-                  Fathername: string
-                  ID: 35
-                  Model: string
-                  Name: string
-                  Password: string
-                  PhoneNumber: string
-                  Surname: string
-      responses:
-        '200':
-          description: ''
-  /profile/{id}/:
-    get:
-      tags:
-        - Admin
-      summary: Просмотр информации о пользователе
-      description: Просмотр информации о пользователе
-      operationId: '7'
-      responses:
-        '200':
-          description: ''
-    delete:
-      tags:
-        - Admin
-      summary: Удаление пользователя
-      description: Удаление пользователя
-      operationId: '6'
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties: {}
-      responses:
-        '200':
-          description: ''
-    patch:
-      tags:
-        - Admin
-      summary: Обновление информации о пользователе
-      description: Обновление информации о пользователе
-      operationId: '8'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                Fathername:
-                  type: string
-                  example: Евгеньевич
-            examples:
-              Обновление информации о пользователе:
-                value: ''
-      responses:
-        '200':
-          description: ''
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-  /admin/users:
-    get:
-      tags:
-        - Admin
-      summary: Получение списка пользователей
-      description: Получение списка пользователей
-      operationId: '9'
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: string
-            example: '1'
-        - name: size
-          in: query
-          schema:
-            type: string
-            example: '20'
-      responses:
-        '200':
-          description: ''
-      security:
-        - basicAuth: []
-  /statistics/view/{PrivateID}/:
-    get:
-      tags:
-        - User
-      summary: Запрос статистики
-      description: Запрос статистики
-      operationId: '10'
-      parameters:
-        - name: From
-          in: query
-          schema:
-            type: string
-            example: '{}'
-        - name: To
-          in: query
-          schema:
-            type: string
-            example: '{}'
-      requestBody:
-        content:
-          application/json:
-            examples:
-              Запрос статистики:
-                value: ''
-      responses:
-        '200':
-          description: Статистика
-          headers:
-            Allow:
-              schema:
-                type: string
-                example: GET, HEAD, OPTIONS
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Content-Encoding:
-              schema:
-                type: string
-                example: gzip
-            Content-Language:
-              schema:
-                type: string
-                example: ru
-            Cross-Origin-Opener-Policy:
-              schema:
-                type: string
-                example: same-origin
-            Date:
-              schema:
-                type: string
-                example: Fri, 10 Jan 2025 13:03:12 GMT
-            Referrer-Policy:
-              schema:
-                type: string
-                example: same-origin
-            Server:
-              schema:
-                type: string
-                example: nginx
-            Transfer-Encoding:
-              schema:
-                type: string
-                example: chunked
-            Vary:
-              schema:
-                type: string
-                example: Accept, Accept-Language, origin
-            X-Content-Type-Options:
-              schema:
-                type: string
-                example: nosniff
-            X-Frame-Options:
-              schema:
-                type: string
-                example: DENY
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        ahi:
-                          type: number
-                          example: 0
-                        ai:
-                          type: number
-                          example: 0
-                        cai:
-                          type: number
-                          example: 0
-                        duration:
-                          type: number
-                          example: 10
-                        epr:
-                          type: number
-                          example: 0
-                        hi:
-                          type: number
-                          example: 0
-                        leak:
-                          type: number
-                          example: 10
-                        mask_pressure:
-                          type: number
-                          example: 0
-                        max_pressure:
-                          type: number
-                          example: 5
-                        min_pressure:
-                          type: number
-                          example: 4
-                        oai:
-                          type: number
-                          example: 0
-                        ramp_time:
-                          type: number
-                          example: 0
-                        temperature:
-                          type: number
-                          example: 0
-                        uai:
-                          type: number
-                          example: 0
-                    date:
-                      type: string
-                      example: '2024-09-26'
-                    id:
-                      type: number
-                      example: 1148
-                    user:
-                      type: number
-                      example: 62
-                example:
-                  - data:
-                      ahi: 0
-                      ai: 0
-                      cai: 0
-                      duration: 10
-                      epr: 0
-                      hi: 0
-                      leak: 10
-                      mask_pressure: 0
-                      max_pressure: 5
-                      min_pressure: 4
-                      oai: 0
-                      ramp_time: 0
-                      temperature: 0
-                      uai: 0
-                    date: '2024-09-26'
-                    id: 1148
-                    user: 62
-                  - data:
-                      ahi: 6.58
-                      ai: 0
-                      cai: 0
-                      duration: 63
-                      epr: 0
-                      hi: 6.58
-                      leak: 5
-                      mask_pressure: 0
-                      max_pressure: 5
-                      min_pressure: 5
-                      oai: 0
-                      ramp_time: 0
-                      temperature: 0
-                      uai: 0
-                    date: '2024-10-07'
-                    id: 1147
-                    user: 62
-                  - data:
-                      ahi: 0
-                      ai: 0
-                      cai: 0
-                      duration: 2
-                      epr: 0
-                      hi: 0
-                      leak: 2
-                      mask_pressure: 0
-                      max_pressure: 6
-                      min_pressure: 5
-                      oai: 0
-                      ramp_time: 0
-                      temperature: 0
-                      uai: 0
-                    date: '2024-10-08'
-                    id: 1150
-                    user: 62
-                  - data:
-                      ahi: 4.83
-                      ai: 0
-                      cai: 0
-                      duration: 198
-                      epr: 0
-                      hi: 4.83
-                      leak: 34
-                      mask_pressure: 0
-                      max_pressure: 6
-                      min_pressure: 6
-                      oai: 0
-                      ramp_time: 0
-                      temperature: 0
-                      uai: 0
-                    date: '2024-10-10'
-                    id: 1146
-                    user: 62
-                  - data:
-                      ahi: 2.11
-                      ai: 0
-                      cai: 0
-                      duration: 313
-                      epr: 0
-                      hi: 2.11
-                      leak: 22
-                      mask_pressure: 0
-                      max_pressure: 6
-                      min_pressure: 6
-                      oai: 0
-                      ramp_time: 0
-                      temperature: 0
-                      uai: 0
-                    date: '2024-10-11'
-                    id: 1145
-                    user: 62
-                  - data:
-                      ahi: 2.6
-                      ai: 0.2
-                      cai: 0
-                      duration: 300
-                      epr: 0
-                      hi: 2.4
-                      leak: 19
-                      mask_pressure: 0
-                      max_pressure: 6
-                      min_pressure: 6
-                      oai: 0
-                      ramp_time: 0
-                      temperature: 0
-                      uai: 0
-                    date: '2024-10-12'
-                    id: 1149
-                    user: 62
-              examples:
-                Статистика:
-                  value:
-                    - data:
-                        ahi: 0
-                        ai: 0
-                        cai: 0
-                        duration: 10
-                        epr: 0
-                        hi: 0
-                        leak: 10
-                        mask_pressure: 0
-                        max_pressure: 5
-                        min_pressure: 4
-                        oai: 0
-                        ramp_time: 0
-                        temperature: 0
-                        uai: 0
-                      date: '2024-09-26'
-                      id: 1148
-                      user: 62
-                    - data:
-                        ahi: 6.58
-                        ai: 0
-                        cai: 0
-                        duration: 63
-                        epr: 0
-                        hi: 6.58
-                        leak: 5
-                        mask_pressure: 0
-                        max_pressure: 5
-                        min_pressure: 5
-                        oai: 0
-                        ramp_time: 0
-                        temperature: 0
-                        uai: 0
-                      date: '2024-10-07'
-                      id: 1147
-                      user: 62
-                    - data:
-                        ahi: 0
-                        ai: 0
-                        cai: 0
-                        duration: 2
-                        epr: 0
-                        hi: 0
-                        leak: 2
-                        mask_pressure: 0
-                        max_pressure: 6
-                        min_pressure: 5
-                        oai: 0
-                        ramp_time: 0
-                        temperature: 0
-                        uai: 0
-                      date: '2024-10-08'
-                      id: 1150
-                      user: 62
-                    - data:
-                        ahi: 4.83
-                        ai: 0
-                        cai: 0
-                        duration: 198
-                        epr: 0
-                        hi: 4.83
-                        leak: 34
-                        mask_pressure: 0
-                        max_pressure: 6
-                        min_pressure: 6
-                        oai: 0
-                        ramp_time: 0
-                        temperature: 0
-                        uai: 0
-                      date: '2024-10-10'
-                      id: 1146
-                      user: 62
-                    - data:
-                        ahi: 2.11
-                        ai: 0
-                        cai: 0
-                        duration: 313
-                        epr: 0
-                        hi: 2.11
-                        leak: 22
-                        mask_pressure: 0
-                        max_pressure: 6
-                        min_pressure: 6
-                        oai: 0
-                        ramp_time: 0
-                        temperature: 0
-                        uai: 0
-                      date: '2024-10-11'
-                      id: 1145
-                      user: 62
-                    - data:
-                        ahi: 2.6
-                        ai: 0.2
-                        cai: 0
-                        duration: 300
-                        epr: 0
-                        hi: 2.4
-                        leak: 19
-                        mask_pressure: 0
-                        max_pressure: 6
-                        min_pressure: 6
-                        oai: 0
-                        ramp_time: 0
-                        temperature: 0
-                        uai: 0
-                      date: '2024-10-12'
-                      id: 1149
-                      user: 62
-    parameters:
-      - name: PrivateID
-        in: path
-        required: true
-        schema:
-          type: string
-  /statistics/upload/{id}:
-    post:
-      tags:
-        - User
-      summary: Загрузка статистики
-      description: Загрузка статистики
-      operationId: '11'
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties: {}
-      responses:
-        '200':
-          description: ''
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-  /patientslink:
-    post:
-      tags:
-        - Doctor
-      summary: Привязка пациента
-      description: Привязка пациента
-      operationId: '18'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                Doctor_ID:
-                  type: number
-                  example: 1
-                patienst_ID:
-                  type: number
-                  example: 100
-            examples:
-              Привязка пациента:
-                value:
-                  Doctor_ID: 1
-                  patienst_ID: 100
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-    delete:
-      tags:
-        - User
-      summary: Отвязать врача от пациента
-      description: Отвязать врача от пациента
-      operationId: '12'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                Doctor_ID:
-                  type: number
-                  example: 100
-                Patient_ID:
-                  type: number
-                  example: 100
-            examples:
-              Отвязать врача от пациента:
-                value: ''
-      responses:
-        '200':
-          description: ''
-  /patients:
-    post:
-      tags:
-        - User
-      summary: Регистрация
-      description: Регистрация
-      operationId: '13'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                Additional:
-                  type: string
-                  example: Бла-бла
-                Birthdate:
-                  type: number
-                  example: 202021
-                Email:
-                  type: string
-                  example: Lev.clav@gmail.com
-                Fathername:
-                  type: string
-                  example: Евгеньевич
-                ID:
-                  type: number
-                  example: 35
-                Model:
-                  type: array
-                  items:
-                    type: string
-                    example: ResMed
-                  example:
-                    - ResMed
-                    - ResVent
-                    - WTF
-                Name:
-                  type: string
-                  example: Лев
-                Password:
-                  type: string
-                  example: Password
-                PhoneNumber:
-                  type: string
-                  example: '+79312014807'
-                Surname:
-                  type: string
-                  example: Славутский
-            examples:
-              Регистрация:
-                value:
-                  Additional: Бла-бла
-                  Birthdate: 202021
-                  Email: Lev.clav@gmail.com
-                  Fathername: Евгеньевич
-                  ID: 35
-                  Model:
-                    - ResMed
-                    - ResVent
-                    - WTF
-                  Name: Лев
-                  Password: Password
-                  PhoneNumber: '+79312014807'
-                  Surname: Славутский
-      responses:
-        '200':
-          description: ''
-  /patients/data/upload:
-    post:
-      tags:
-        - User
-      summary: Данные пациента
-      description: Данные пациента
-      operationId: '14'
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                Data:
-                  type: string
-                  format: binary
-      responses:
-        '200':
-          description: ''
-  /data/{patientId}:
-    get:
-      tags:
-        - Doctor
-      summary: Девайсы
-      description: Девайсы
-      operationId: '15'
-      parameters:
-        - name: from=2024-03-01&to=2024-03-20
-          in: query
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-    parameters:
-      - name: patientId
-        in: path
-        required: true
-        schema:
-          type: string
-  /doctors/patients/:
-    get:
-      tags:
-        - Doctor
-      summary: Пациенты
-      description: Пациенты
-      operationId: '16'
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: string
-            example: '1'
-        - name: size
-          in: query
-          schema:
-            type: string
-            example: '20'
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-  /doctors:
-    post:
-      tags:
-        - Doctor
-      summary: Регистрация
-      description: Регистрация
-      operationId: '17'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                Birthdate:
-                  type: number
-                  example: 202021
-                Email:
-                  type: string
-                  example: Lev.clav@gmail.com
-                Fathername:
-                  type: string
-                  example: Евгеньевич
-                ID:
-                  type: number
-                  example: 35
-                Name:
-                  type: string
-                  example: Лев
-                Password:
-                  type: string
-                  example: Password
-                PhoneNumber:
-                  type: string
-                  example: '+79312014807'
-                Surname:
-                  type: string
-                  example: Славутский
-            examples:
-              Регистрация:
-                value:
-                  Birthdate: 202021
-                  Email: Lev.clav@gmail.com
-                  Fathername: Евгеньевич
-                  ID: 35
-                  Name: Лев
-                  Password: Password
-                  PhoneNumber: '+79312014807'
-                  Surname: Славутский
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-components:
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
-    bearerAuth:
-      type: http
-      scheme: bearer
-security:
-  - bearerAuth: []
-tags:
+  _postman_id: efe1a826-a26f-48d8-b149-0ac2664c9810
+  name: Здоровый сон
+  description: >-
+    Всем привет!  
+
+    Данная API документация лежит в основе проекта в сфере MedTech для известной
+    клиники.
+
+
+    Суть проекта:  
+
+    Есть Web-приложение, через которое могут взаимодействовать пользователи.
+    Клиенты клиники могут регистрироваться, загружать данные со своих аппаратов,
+    просматривать статистику показателей из этих данных в разрезе времени, а
+    также давать доступ к врачам для просмотра их статистики и убирать его.
+    Врачи могут привязываться к пациентам для просмотра статистики.
+    Администратор может добавлять/убирать пользователей, просматривать часть
+    информации о них и обновлять информацию о них
+  schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+  _exporter_id: '40922779'
+item:
   - name: Общие запросы
+    item:
+      - name: Профиль
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/profile/{id}'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - '{id}'
+          description: >-
+            Запрос на получение информации об профиле авторизованного
+            пользователя
+        response:
+          - name: Профиль_200
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "ID": 35,
+                  "Name": "Лев",
+                  "Surname": "Славутский",
+                  "Fathername": "Евгеньевич",
+                  "Email": "Lev.clav@gmail.com",
+                  "Model": "ResMed",
+                  "Birthdate": "08/07/2003",
+                  "PhoneNumber": "+79312014807",
+                  "Additional": "Текст для дополнительной информации"
+              }
+          - name: Профиль_404
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+            status: Not Found
+            code: 404
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Not found."
+              }
+          - name: Профиль_403
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+            code: 403
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "You do not have permission to perform this action."
+              }
+          - name: Профиль_401
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+            status: Unauthorized
+            code: 401
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Authentication credentials were not provided."
+              }
+      - name: Запрос токена
+        event:
+          - listen: test
+            script:
+              exec:
+                - ''
+              type: text/javascript
+              packages: {}
+              requests: {}
+          - listen: prerequest
+            script:
+              exec:
+                - ''
+              type: text/javascript
+              packages: {}
+              requests: {}
+        request:
+          auth:
+            type: basic
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n  \"Login_Password_Hash\":\"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/auth/login/'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - login
+              - ''
+          description: Запрос на получение токенов для дальнейшей работы в системе
+        response:
+          - name: Запрос токена_200
+            originalRequest:
+              method: POST
+              header:
+                - key: Content-Type
+                  value: application/json
+                  type: text
+              body:
+                mode: raw
+                raw: "{\r\n  \"Login_Password_Hash\":\"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/login/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - login
+                  - ''
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "accessToken": "jwt_token",
+                  "refreshToken": "refresh_token",
+                  "user": {
+                      "id": 1,
+                      "role": "PATIENT"
+                  }
+              }
+          - name: Запрос токена_401
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"Login_Password_Hash\":\"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/login/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - login
+                  - ''
+            status: Unauthorized
+            code: 401
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n  \"detail\": \"Authentication credentials were not provided.\",\r\n  \"description\":\"Неверная пара логин/пароль. Пожалуйста, убедитесь, что вы ввели правильные данные.\"\r\n}"
+      - name: Обновление токена
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"refreshtoken\":\"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/auth/refresh'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - refresh
+          description: Запрос на обновление токена
+        response:
+          - name: Обновление токена_200
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"refreshToken\": \"refresh_token\"\r\n}"
+              url:
+                raw: '{{URL}}/auth/refresh'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - refresh
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "detail": "new_jwt_token"
+              }
+          - name: Обновление токена_404
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"refreshtoken\":\"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/refresh'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - refresh
+            status: Not Found
+            code: 404
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "detail": "Not found.",
+                  "description": "Неверный Токен доступа. Пожалуйста, убедитесь, что вы используете правильный токен и что он действителен."
+              }
+      - name: Восстановление пароля
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"email\": \"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/auth/reset_password/'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - reset_password
+              - ''
+          description: Запрос на отправку email для смены пароля
+        response:
+          - name: Восстановление пароля_200
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"email\": \"bla-bla@gmail.com\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/reset_password/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - reset_password
+                  - ''
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"detail\": \"На почту был отправлен код для сброса пароля. Пожалуйста, введите его.\"\r\n}"
+          - name: Восстановление пароля_404
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"email\": \"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/reset_password/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - reset_password
+                  - ''
+            status: Not Found
+            code: 404
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Not found.",
+                  "description": "Не удаётся найти пользователя с данным Email"
+              }
+      - name: Смена пароля
+        request:
+          method: PATCH
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"Password_Hash\": \"stirng\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/profile/change_password/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - change_password
+              - ''
+        response:
+          - name: Смена пароля_200
+            originalRequest:
+              method: PATCH
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"Password\": \"123\",\r\n    \"NewPassword\":\"12321\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/profile/change_password/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - change_password
+                  - ''
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "detail": "Ваш пароль был успешно изменён."
+              }
     description: >-
       Здесь находятся общие запросы, которые может выполнять каждая роль в
       системе
   - name: Admin
+    item:
+      - name: Создание нового пользователя
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"Name\": \"string\",\r\n    \"Surname\": \"string\",\r\n    \"Fathername\": \"string\",\r\n    \"Email\": \"string\",\r\n    \"RoleID\": \"string\",\r\n    \"Model\": \"string\",\r\n    \"Birthdate\": \"date\",\r\n    \"PhoneNumber\": \"string\",\r\n    \"Password_Hash\": \"string\",\r\n    \"Additional\": \"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/auth/new'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - new
+          description: |-
+            Добавление пользователя может происходить двумя путями:
+
+            1) Самостоятельная регистрация пользователя  
+            2) **Добавление пользователя через администратора**
+        response:
+          - name: Создание нового пользователя_200
+            originalRequest:
+              method: POST
+              header:
+                - key: Content-Type
+                  value: application/json
+                  type: text
+              body:
+                mode: raw
+                raw: "{\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"***@gmail.com\",\r\n    \"RoleID\": \"Patient\",\r\n    \"Model\": \"WTF\",\r\n    \"Birthdate\": \"08/07/2003\",\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password_Hash\": \"***\",\r\n    \"Additional\": \"***\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/new'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - new
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"ID\":35,\r\n\"detail\": \"User has created\"\r\n}"
+          - name: Создание нового пользователя_400
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"***@gmail.com\",\r\n    \"RoleID\": \"Patient\",\r\n    \"Model\": \"WTF\",\r\n    \"Birthdate\": \"08/07/2003\",\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password_Hash\": \"***\",\r\n    \"Additional\": \"***\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/new'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - new
+            code: 400
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"detail\":\"This user has already been created. Please try logging in instead.\"\r\n}"
+      - name: Удаление пользователя
+        request:
+          method: DELETE
+          header: []
+          url:
+            raw: '{{URL}}/profile/{id}/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - '{id}'
+              - ''
+        response:
+          - name: Удаление пользователя_200
+            originalRequest:
+              method: DELETE
+              header: []
+              body:
+                mode: formdata
+                formdata: []
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "detail": "User deleted"
+              }
+          - name: Удаление пользователя_404
+            originalRequest:
+              method: DELETE
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            code: 404
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n    \"detail\":\"Cannot find this user.\"\r\n}"
+      - name: Просмотр информации о пользователе
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/profile/{id}/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - '{id}'
+              - ''
+          description: >-
+            Запрос аналогичный запросу в общих запросах, за исключением
+            дополнительной информации, которую необходимо оставить исключительно
+            между врачом и пациентом
+        response:
+          - name: Просмотр информации о пользователе_200
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"RoleID\": \"Patient\",\r\n    \"Model\": \"ResMed\",\r\n    \"Birthdate\": \"08/07/2003\",\r\n    \"PhoneNumber\": \"+79312014807\"\r\n}"
+          - name: Просмотр информации о пользователе_404
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            status: Not Found
+            code: 404
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Not found."
+              }
+      - name: Обновление информации о пользователе
+        request:
+          method: PATCH
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"Fathername\": \"Евгеньевич\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/profile/{id}/'
+            host:
+              - '{{URL}}'
+            path:
+              - profile
+              - '{id}'
+              - ''
+        response:
+          - name: Обновление информации о пользователе_200
+            originalRequest:
+              method: PATCH
+              header: []
+              body:
+                mode: raw
+                raw: ''
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"RoleID\": \"Patient\",\r\n    \"Model\": \"ResMed\",\r\n    \"Birthdate\": \"08/07/2003\",\r\n    \"PhoneNumber\": \"+79312014807\"\r\n}"
+          - name: Обновление информации о пользователе_401
+            originalRequest:
+              method: PATCH
+              header: []
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            code: 401
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n    \"detail\": \"Authentication credentials were not provided.\"\r\n}"
+          - name: Обновление информации о пользователе_404
+            originalRequest:
+              method: PATCH
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"Fathername\": \"Евгеньевич\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/profile/{id}/'
+                host:
+                  - '{{URL}}'
+                path:
+                  - profile
+                  - '{id}'
+                  - ''
+            status: Not Found
+            code: 404
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Not found."
+              }
+      - name: Получение списка пользователей
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/admin/users?page=1&size=20&RoleID=&Email='
+            host:
+              - '{{URL}}'
+            path:
+              - admin
+              - users
+            query:
+              - key: page
+                value: '1'
+              - key: size
+                value: '20'
+              - key: RoleID
+                value: ''
+              - key: Email
+                value: ''
+        response:
+          - name: Получение списка пользователей_200
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/admin/users?page=1&size=20&RoleID=&Email='
+                host:
+                  - '{{URL}}'
+                path:
+                  - admin
+                  - users
+                query:
+                  - key: page
+                    value: '1'
+                  - key: size
+                    value: '20'
+                  - key: RoleID
+                    value: ''
+                  - key: Email
+                    value: ''
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n    \"page\": 1,\r\n  \"size\": 20,\r\n  \"totalPages\": 10,\r\n  \"items\": [\r\n    {\r\n      \"id\": 1,\r\n      \"email\": \"user@mail.com\",\r\n      \"role\": \"PATIENT\"\r\n    },\r\n    {\r\n      \"id\": 2,\r\n      \"email\": \"user@mail.com\",\r\n      \"role\": \"Doctor\"\r\n    },\r\n  ]\r\n}"
+          - name: Получение списка пользователей_401
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/admin/users?page=1&size=20&RoleID=&Email='
+                host:
+                  - '{{URL}}'
+                path:
+                  - admin
+                  - users
+                query:
+                  - key: page
+                    value: '1'
+                  - key: size
+                    value: '20'
+                  - key: RoleID
+                    value: ''
+                  - key: Email
+                    value: ''
+            code: 401
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n    \"detail\": \"Authentication credentials were not provided.\"\r\n}"
+    description: >-
+      Здесь находятся запросы, которые может выполнять только пользователь со
+      статусом "Админ"
   - name: User
+    item:
+      - name: Запрос статистики
+        protocolProfileBehavior:
+          disableBodyPruning: true
+        request:
+          method: GET
+          header: []
+          body:
+            mode: raw
+            raw: ''
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/statistics/?From={}&To={}'
+            host:
+              - '{{URL}}'
+            path:
+              - statistics
+              - ''
+            query:
+              - key: From
+                value: '{}'
+              - key: To
+                value: '{}'
+        response:
+          - name: Запрос статистики_200
+            originalRequest:
+              method: GET
+              header: []
+              body:
+                mode: raw
+                raw: ''
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/statistics/?From={}&To={}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - statistics
+                  - ''
+                query:
+                  - key: From
+                    value: '{}'
+                  - key: To
+                    value: '{}'
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Server
+                value: nginx
+              - key: Date
+                value: Fri, 10 Jan 2025 13:03:12 GMT
+              - key: Content-Type
+                value: application/json
+              - key: Transfer-Encoding
+                value: chunked
+              - key: Connection
+                value: keep-alive
+              - key: Vary
+                value: Accept-Encoding
+              - key: Vary
+                value: Accept, Accept-Language, origin
+              - key: Allow
+                value: GET, HEAD, OPTIONS
+              - key: X-Frame-Options
+                value: DENY
+              - key: Content-Language
+                value: ru
+              - key: X-Content-Type-Options
+                value: nosniff
+              - key: Referrer-Policy
+                value: same-origin
+              - key: Cross-Origin-Opener-Policy
+                value: same-origin
+              - key: Content-Encoding
+                value: gzip
+            cookie: []
+            body: |-
+              [
+                  {
+                      "id": 1148,
+                      "Model":"WTF",
+                      "date": "2024-09-26",
+                      "data": {
+                          "ai": 0,
+                          "hi": 0,
+                          "ahi": 0,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 10,
+                          "duration": 10,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 5,
+                          "min_pressure": 4,
+                          "mask_pressure": 0
+                      }
+                  },
+                  {
+                      "id": 1147,
+                      "date": "2024-10-07",
+                      "Model":"WTF",
+                      "data": {
+                          "ai": 0,
+                          "hi": 6.58,
+                          "ahi": 6.58,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 5,
+                          "duration": 63,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 5,
+                          "min_pressure": 5,
+                          "mask_pressure": 0
+                      }
+                  },
+                  {
+                      "id": 1150,
+                      "date": "2024-10-08",
+                      "Model":"WTF",
+                      "data": {
+                          "ai": 0,
+                          "hi": 0,
+                          "ahi": 0,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 2,
+                          "duration": 2,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 5,
+                          "mask_pressure": 0
+                      }
+                  },
+                  {
+                      "id": 1146,
+                      "date": "2024-10-10",
+                      "Model":"WTF",
+                      "data": {
+                          "ai": 0,
+                          "hi": 4.83,
+                          "ahi": 4.83,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 34,
+                          "duration": 198,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      }
+                  },
+                  {
+                      "id": 1145,
+                      "date": "2024-10-11",
+                      "Model":"WTF",
+                      "data": {
+                          "ai": 0,
+                          "hi": 2.11,
+                          "ahi": 2.11,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 22,
+                          "duration": 313,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      }
+                  },
+                  {
+                      "id": 1149,
+                      "date": "2024-10-12",
+                      "Model":"WTF",
+                      "data": {
+                          "ai": 0.2,
+                          "hi": 2.4,
+                          "ahi": 2.6,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 19,
+                          "duration": 300,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      }
+                  }
+              ]
+      - name: Загрузка статистики
+        request:
+          method: POST
+          header: []
+          body:
+            mode: formdata
+            formdata:
+              - key: Data
+                type: file
+                uuid: 9de0d6f9-4e15-40cd-bf4b-cba285401a2e
+                value: null
+          url:
+            raw: '{{URL}}/statistics/upload'
+            host:
+              - '{{URL}}'
+            path:
+              - statistics
+              - upload
+        response:
+          - name: Загрузка статистики_200
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: formdata
+                formdata:
+                  - key: Data
+                    type: file
+                    uuid: f6112173-9532-4dd0-8a0f-80df68810544
+                    value: null
+              url:
+                raw: '{{URL}}/statistics/upload'
+                host:
+                  - '{{URL}}'
+                path:
+                  - statistics
+                  - upload
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                "message": "Data uploaded successfully"
+              }
+          - name: Загрузка статистики_401
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: formdata
+                formdata:
+                  - key: Data
+                    type: file
+                    uuid: e7bba026-6c43-4703-a2a4-089f3deb671f
+                    value: null
+              url:
+                raw: '{{URL}}/statistics/upload'
+                host:
+                  - '{{URL}}'
+                path:
+                  - statistics
+                  - upload
+            status: Unauthorized
+            code: 401
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n    \"detail\": \"Authentication credentials were not provided.\"\r\n}"
+      - name: Отвязать врача от пациента
+        request:
+          method: DELETE
+          header: []
+          body:
+            mode: raw
+            raw: ''
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/patientslink/{doctorID}'
+            host:
+              - '{{URL}}'
+            path:
+              - patientslink
+              - '{doctorID}'
+        response:
+          - name: Отвязать врача от пациента_200
+            originalRequest:
+              method: DELETE
+              header: []
+              body:
+                mode: raw
+                raw: ''
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/patientslink/{doctorID}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patientslink
+                  - '{doctorID}'
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "message": "Patient unlinked successfully"
+              }
+          - name: Отвязать врача от пациента_401
+            originalRequest:
+              method: DELETE
+              header: []
+              body:
+                mode: raw
+                raw: ''
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/patientslink/{doctorID}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patientslink
+                  - '{doctorID}'
+            status: Unauthorized
+            code: 401
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Authentication credentials were not provided."
+              }
+          - name: Отвязать врача от пациента_404
+            originalRequest:
+              method: DELETE
+              header: []
+              body:
+                mode: raw
+                raw: ''
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/patientslink/{doctorID}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patientslink
+                  - '{doctorID}'
+            status: Not Found
+            code: 404
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Not found."
+              }
+      - name: Регистрация
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"Name\": \"string\",\r\n    \"Surname\": \"string\",\r\n    \"Fathername\": \"string\",\r\n    \"Email\": \"string\",\r\n    \"RoleID\": \"string\",\r\n    \"Model\": \"string\",\r\n    \"Birthdate\": \"date\",\r\n    \"PhoneNumber\": \"string\",\r\n    \"Password_Hash\": \"string\",\r\n    \"Additional\": \"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/auth/new'
+            host:
+              - '{{URL}}'
+            path:
+              - auth
+              - new
+          description: |-
+            Добавление пользователя может происходить двумя путями:
+
+            1) **Самостоятельная регистрация пользователя**  
+            2) Добавление пользователя через администратора
+        response:
+          - name: Регистрация_200
+            originalRequest:
+              method: POST
+              header:
+                - key: Content-Type
+                  value: application/json
+                  type: text
+              body:
+                mode: raw
+                raw: "{\r\n    \"ID\": 35,\r\n    \"Name\": \"Лев\",\r\n    \"Surname\": \"Славутский\",\r\n    \"Fathername\": \"Евгеньевич\",\r\n    \"Email\": \"Lev.clav@gmail.com\",\r\n    \"Model\": [\"ResMed\", \"ResVent\", \"WTF\"],\r\n    \"Birthdate\": 202021,\r\n    \"PhoneNumber\": \"+79312014807\",\r\n    \"Password\": \"Password\",\r\n    \"Additional\": \"Бла-бла\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/new'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - new
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                  "ID":35,
+              "detail": "User has created"
+              }
+          - name: Регистрация_400
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"Name\": \"string\",\r\n    \"Surname\": \"string\",\r\n    \"Fathername\": \"string\",\r\n    \"Email\": \"string\",\r\n    \"RoleID\": \"string\",\r\n    \"Model\": \"string\",\r\n    \"Birthdate\": \"date\",\r\n    \"PhoneNumber\": \"string\",\r\n    \"Password_Hash\": \"string\",\r\n    \"Additional\": \"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/auth/new'
+                host:
+                  - '{{URL}}'
+                path:
+                  - auth
+                  - new
+            status: Bad Request
+            code: 400
+            _postman_previewlanguage: ''
+            header: []
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: "{\r\n    \"detail\":\"This user has already been created. Please try logging in instead.\"\r\n}"
+      - name: Подтверждение доступа врачу
+        request:
+          method: PATCH
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n  \"status\": \"string\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/patientslink/{doctorID}'
+            host:
+              - '{{URL}}'
+            path:
+              - patientslink
+              - '{doctorID}'
+        response:
+          - name: Подтверждение доступа врачу_200
+            originalRequest:
+              method: PATCH
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"status\": \"approved\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/patientslink/{doctorID}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patientslink
+                  - '{doctorID}'
+            status: OK
+            code: 200
+            _postman_previewlanguage: ''
+            header: []
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: ''
+          - name: Не подтверждение доступа врачу_200
+            originalRequest:
+              method: PATCH
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"status\": \"denied\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/patientslink/{doctorID}'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patientslink
+                  - '{doctorID}'
+            status: OK
+            code: 200
+            _postman_previewlanguage: ''
+            header: []
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: ''
     description: >-
       Здесь находятся запросы, которые могут выполнять только пользователи со
       статусом "Пациент"
   - name: Doctor
+    item:
+      - name: Пациенты
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/doctors/patients/?page=1&size=20'
+            host:
+              - '{{URL}}'
+            path:
+              - doctors
+              - patients
+              - ''
+            query:
+              - key: page
+                value: '1'
+              - key: size
+                value: '20'
+        response:
+          - name: Пациенты_200
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/doctors/patients/?page=1&size=20'
+                host:
+                  - '{{URL}}'
+                path:
+                  - doctors
+                  - patients
+                  - ''
+                query:
+                  - key: page
+                    value: '1'
+                  - key: size
+                    value: '20'
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie: []
+            body: |-
+              {
+                   "page": 1,
+                "size": 20,
+                "totalPages": 10,
+                  "items": [
+                      {
+                          "id": 1,
+                          "name": "Ivan",
+                          "lastName": "Ivanov"
+                      },
+                      {
+                          "id": 2,
+                          "name": "Petr",
+                          "lastName": "Ivanov"
+                      }
+                  ]
+              }
+          - name: Пациенты_401
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/doctors/patients/?page=1&size=20'
+                host:
+                  - '{{URL}}'
+                path:
+                  - doctors
+                  - patients
+                  - ''
+                query:
+                  - key: page
+                    value: '1'
+                  - key: size
+                    value: '20'
+            status: Unauthorized
+            code: 401
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Authentication credentials were not provided."
+              }
+      - name: Привязка пациента
+        request:
+          method: POST
+          header: []
+          body:
+            mode: raw
+            raw: "{\r\n    \"patienst_ID\": \"int\"\r\n}"
+            options:
+              raw:
+                language: json
+          url:
+            raw: '{{URL}}/patientslink'
+            host:
+              - '{{URL}}'
+            path:
+              - patientslink
+        response:
+          - name: Привязка пациента_200
+            originalRequest:
+              method: POST
+              header:
+                - key: Content-Type
+                  value: application/json
+                  type: text
+              body:
+                mode: raw
+                raw: "{\r\n    \"patienst_ID\": 100\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/patientslink'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patientslink
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Your request was sended."
+              }
+          - name: Привязка пациента_404
+            originalRequest:
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n    \"patienst_ID\": \"10\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: '{{URL}}/patientslink'
+                host:
+                  - '{{URL}}'
+                path:
+                  - patientslink
+            status: Not Found
+            code: 404
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Not found."
+              }
+      - name: Просмотр статистики пациента
+        request:
+          method: GET
+          header: []
+          url:
+            raw: '{{URL}}/statistics/{PatientsID}/?From={}&To={}'
+            host:
+              - '{{URL}}'
+            path:
+              - statistics
+              - '{PatientsID}'
+              - ''
+            query:
+              - key: From
+                value: '{}'
+              - key: To
+                value: '{}'
+        response:
+          - name: Просмотр статистики пациента_200
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/statistics/{PatientsID}/?From=2024-09-26&To=2024-10-12'
+                host:
+                  - '{{URL}}'
+                path:
+                  - statistics
+                  - '{PatientsID}'
+                  - ''
+                query:
+                  - key: From
+                    value: '2024-09-26'
+                  - key: To
+                    value: '2024-10-12'
+            status: OK
+            code: 200
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              [
+                  {
+                      "id": 1148,
+                      "date": "2024-09-26",
+                      "data": {
+                          "ai": 0,
+                          "hi": 0,
+                          "ahi": 0,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 10,
+                          "duration": 10,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 5,
+                          "min_pressure": 4,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1147,
+                      "date": "2024-10-07",
+                      "data": {
+                          "ai": 0,
+                          "hi": 6.58,
+                          "ahi": 6.58,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 5,
+                          "duration": 63,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 5,
+                          "min_pressure": 5,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1150,
+                      "date": "2024-10-08",
+                      "data": {
+                          "ai": 0,
+                          "hi": 0,
+                          "ahi": 0,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 2,
+                          "duration": 2,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 5,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1146,
+                      "date": "2024-10-10",
+                      "data": {
+                          "ai": 0,
+                          "hi": 4.83,
+                          "ahi": 4.83,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 34,
+                          "duration": 198,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1145,
+                      "date": "2024-10-11",
+                      "data": {
+                          "ai": 0,
+                          "hi": 2.11,
+                          "ahi": 2.11,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 22,
+                          "duration": 313,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  },
+                  {
+                      "id": 1149,
+                      "date": "2024-10-12",
+                      "data": {
+                          "ai": 0.2,
+                          "hi": 2.4,
+                          "ahi": 2.6,
+                          "cai": 0,
+                          "epr": 0,
+                          "oai": 0,
+                          "uai": 0,
+                          "leak": 19,
+                          "duration": 300,
+                          "ramp_time": 0,
+                          "temperature": 0,
+                          "max_pressure": 6,
+                          "min_pressure": 6,
+                          "mask_pressure": 0
+                      },
+                      "user": 62
+                  }
+              ]
+          - name: Просмотр статистики пациента_401
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/statistics/{PatientsID}/?From=2024-09-26&To=2024-10-12'
+                host:
+                  - '{{URL}}'
+                path:
+                  - statistics
+                  - '{PatientsID}'
+                  - ''
+                query:
+                  - key: From
+                    value: '2024-09-26'
+                  - key: To
+                    value: '2024-10-12'
+            status: Unauthorized
+            code: 401
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "Authentication credentials were not provided."
+              }
+          - name: Просмотр статистики пациента_403
+            originalRequest:
+              method: GET
+              header: []
+              url:
+                raw: '{{URL}}/statistics/{PatientsID}/?From=2024-09-26&To=2024-10-12'
+                host:
+                  - '{{URL}}'
+                path:
+                  - statistics
+                  - '{PatientsID}'
+                  - ''
+                query:
+                  - key: From
+                    value: '2024-09-26'
+                  - key: To
+                    value: '2024-10-12'
+            status: Forbidden
+            code: 403
+            _postman_previewlanguage: json
+            header:
+              - key: Content-Type
+                value: application/json
+                description: ''
+                type: text
+            cookie:
+              - expires: Invalid Date
+                domain: ''
+                path: ''
+            body: |-
+              {
+                  "detail": "You cannot see this profile",
+                  "Description": "Этот пользователь не подтвердил своё согласие на просмотр информации."
+              }
+    description: >-
+      Здесь находятся запросы, которые могут выполнять только пользователи со
+      статусом "Доктор"
+    auth:
+      type: bearer
+      bearer:
+        - key: token
+          value: >-
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2NTI3NTY4LCJpYXQiOjE3MzY1MDIzNjgsImp0aSI6IjU3OWI2MmQ1YTE5YjRhNjZhOWEzMDE4MDE2N2U1OTljIiwidXNlcl9pZCI6NTZ9.jz9PpZC930tJQ2hhb-zlTqdfM4tXPYeVyk6PiXPeyHo
+          type: string
+    event:
+      - listen: prerequest
+        script:
+          type: text/javascript
+          packages: {}
+          exec:
+            - ''
+      - listen: test
+        script:
+          type: text/javascript
+          packages: {}
+          exec:
+            - ''
+auth:
+  type: bearer
+  bearer:
+    - key: token
+      value: '{{Token}}'
+      type: string
+event:
+  - listen: prerequest
+    script:
+      type: text/javascript
+      packages: {}
+      requests: {}
+      exec:
+        - ''
+  - listen: test
+    script:
+      type: text/javascript
+      packages: {}
+      requests: {}
+      exec:
+        - ''
+variable:
+  - key: URL
+    value: https://api.medapp.com
+  - key: Token
+    value: ''
+
